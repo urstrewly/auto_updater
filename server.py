@@ -7,7 +7,7 @@ from datetime import datetime
 class auto_updater:
     """ A simple server class """
 
-    FILE    = 'update/readme.txt'
+    FILE    = 'update/vs.txt'
     VERSION =  "0"
     HOST    = '127.0.0.1' 
     PORT    = 65222                     # PORT TO LISTEN ON non privileged ports are > 1023
@@ -55,7 +55,6 @@ class auto_updater:
             for item in self.update:
                 socket.sendall(str.encode(self.update[item]))
 
-
             # call patch
 
             # close old executable
@@ -79,4 +78,3 @@ cl_updater = auto_updater()
 cl_updater.update_manager()
         
         
-
