@@ -74,13 +74,8 @@ class auto_updater:
             socket.sendall(str.encode(self.update[item]))
 
             while True:
-                break
-            
-                # call patch
-
-                # close old executable
-                            
-                # execute update and run file               
+                pass
+                # call closeme.exe - closeme.exe run update.exe after ( but is named test.exe for testing )
             return(True);         
 
     def verify_client(self):
