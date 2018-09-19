@@ -1,12 +1,12 @@
 import socket
-import os
+from datetime import datetime
 # 9/15/2018 
 class auto_updater:
     
     FILE    = 'update/vs.txt'
     VERSION =  "0"
     HOST    = '127.0.0.1' 
-    PORT    = 65222                     # PORT TO LISTEN ON non privileged ports are > 1023
+    PORT    = 65222         # PORT TO LISTEN ON non privileged ports are > 1023
 
     update = {
         "Update": "1",
@@ -26,7 +26,7 @@ class auto_updater:
                     if (self.VERSION):
                         break
 
-                if not (self.send_version(connectionSocket)):
+                if (self.send_version(connectionSocket)):
                         
                         if not ((self.verify_client())):
                             if (self.no_update(connectionSocket)):
@@ -34,7 +34,7 @@ class auto_updater:
 
                         else:
                             if(self.update_client(connectionSocket)):
-                                print("client needs to update") # while loop for client data
+                                print("client needs to update") 
 
                 else:
                     return(False)
@@ -80,13 +80,11 @@ class auto_updater:
 
         #update
         if not ((file[0] == self.VERSION)):
-            print("update required")
             return(True)
 
 
         # dont update    
         else:
-            print("update not required")
             return(False)
             
 cl_updater = auto_updater()
