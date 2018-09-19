@@ -17,8 +17,6 @@ private:
 	int ProcessId;
 };
 
-extern DWORD	client;
-extern DWORD	engine;
 extern HANDLE	hProcess;
 
 extern MemoryManager* Process;
