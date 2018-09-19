@@ -1,8 +1,6 @@
 #include "Mem.h"
 
 
-extern DWORD client		= NULL;
-extern DWORD engine		= NULL;
 extern HANDLE hProcess  = NULL;
 
 
@@ -13,9 +11,7 @@ MemoryManager::MemoryManager()
 
 MemoryManager::~MemoryManager()
 {
-	client = NULL;
-	engine = NULL;
-	hProcess = INVALID_HANDLE_VALUE;
+	hProcess  = INVALID_HANDLE_VALUE;
 	ProcessId = NULL;
 }
 
@@ -24,8 +20,11 @@ bool MemoryManager::MemoryManager::kill(const char* pp)
 {
 
 	if (GetProcessByName(pp)) 
-		if (TerminateProcess(hProcess, NULL))
+		if (TerminateProcess(hProcess, NULL)) {
+			//ShellExecute(NULL, "open", "path\\to\\test.exe", NULL, NULL, SW_SHOWDEFAULT);
 			return true;
+		}
+			
 	
 		return false;
 }
