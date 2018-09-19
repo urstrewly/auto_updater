@@ -1,5 +1,6 @@
 import socket
 import os
+import json
 import sys
 from datetime import datetime
 # 9/15/2018 
@@ -12,8 +13,7 @@ class auto_updater:
 
     update = {
         "Update": "1",
-        "Version": VERSION,
-        "Time": str(datetime.now())
+        "Version": VERSION
      }
   
     def update_manager(self):
@@ -32,10 +32,12 @@ class auto_updater:
                 if not (self.send_version(connectionSocket)):
                         
                         if not ((self.verify_client())):
-                            self.no_update(connectionSocket)
+                            if (self.no_update(connectionSocket)):
+                                print("client doesnt need to update")
 
                         else:
-                            self.update_client(connectionSocket) # while loop for client data
+                            if(self.update_client(connectionSocket)):
+                                print("client needs to update") # while loop for client data
 
                 else:
                     return(False)
@@ -50,31 +52,31 @@ class auto_updater:
             
         
         if (socket.sendall(str.encode(str(file)))):
-            return(True)
+            return(False)
         
-
+        return(True)
                             
     def no_update(self, socket):
         if not ((self.update["Update"] == "0")):
             self.update["Update"] = "0"
-                                                    
-            for item in self.update:
-                if (socket.sendall(str.encode(self.update[item]))):
-                    print("sent no update needed")
-                    return(True)
+            
+        if (socket.sendall(str.encode(self.update["Update"]))):
+            return(False)
+        
+        return(True)
                 
-                return(False)
+        
 
     def update_client(self, socket):
         if not ((self.update["Update"] == "1")):
             self.update["Update"] = "1"
             
-        for item in self.update:
-            socket.sendall(str.encode(self.update[item]))
-
-            while True:
-                pass # call closeme.exe - closeme.exe run update.exe after ( but is named test.exe for testing )
-            return(True);         
+        if (socket.sendall(str.encode(self.update["Update"]))):
+            return(False)
+        
+        return(True)
+              
+                  
 
     def verify_client(self):
         file = open(self.FILE).read().split('\n')
