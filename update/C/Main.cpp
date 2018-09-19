@@ -1,12 +1,14 @@
 #include <iostream>
 #include "Mem.h"
 
+MemoryManager* Process = new MemoryManager;
+
 int main()
 {
-	MemoryManager* mem = new MemoryManager;
+	
 
 
-	if (!mem->kill("alpha.exe"))
+	if (!Process->kill("alpha.exe"))
 		return -1;
 
 	
